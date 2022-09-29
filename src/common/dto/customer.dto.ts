@@ -15,4 +15,4 @@ export class CreateCustomerDto {
   readonly phone: string;
 }
 
-export class UpdateProductDto extends PartialType(CreateCustomerDto) {}
+export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {}

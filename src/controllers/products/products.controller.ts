@@ -1,25 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Query,
-  HttpStatus,
-  HttpCode,
-  Patch,
-  ParseIntPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, HttpStatus, HttpCode, Patch, ParseIntPipe } from '@nestjs/common';
 import { CreateProductDto, UpdateProductDto } from 'src/common/dto/products.dto';
 import { Product } from 'src/entities/product.entity';
 import { ProductsService } from 'src/services/products/products.service';
-
-interface IProductsQuery {
-  limit?: number;
-  offset?: number;
-  brand?: string;
-}
 
 @Controller('products')
 export class ProductsController {
@@ -27,9 +9,7 @@ export class ProductsController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  getAllProducts(@Query() params: IProductsQuery): Product[] {
-    // const { limit, offset, brand } = params;
-    // return `Products: Limit=> ${limit || 0}, Offset=> ${offset || 0}, Brand=> ${brand || ''}`;
+  getAllProducts(): Product[] {
     return this.productService.findAll();
   }
 

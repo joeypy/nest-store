@@ -1,58 +1,57 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateUserDto, UpdateUserDto } from 'src/common/dto/users';
+import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class UsersService {
   private counterId = 1;
-  private products: Product[] = [
+  private users: User[] = [
     {
       id: 1,
-      name: 'MacBook Pro 16',
-      description: 'Laptop Apple',
-      price: 2200,
-      image: '',
-      stock: 12,
+      email: 'correo@mail.com',
+      password: '12345',
+      role: 'admin',
     },
   ];
 
   findAll() {
-    return this.products;
+    return this.users;
   }
 
   findOne(id: number) {
-    const product = this.products.find((item) => item.id == id);
-    if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
+    const user = this.users.find((item) => item.id === id);
+    if (!user) {
+      throw new NotFoundException(`User #${id} not found`);
     }
-    return product;
+    return user;
   }
 
-  create(payload: CreateProductDto) {
-    console.log(payload);
+  create(data: CreateUserDto) {
     this.counterId = this.counterId + 1;
-    const newProduct = {
-      id: this.counterId++,
-      ...payload,
+    const newUser = {
+      id: this.counterId,
+      ...data,
     };
-    this.products.push(newProduct);
-    return newProduct;
+    this.users.push(newUser);
+    return newUser;
   }
 
-  update(id: number, payload: UpdateProductDto) {
-    const product = this.findOne(id);
-    const index = this.products.findIndex((item) => item.id === id);
-    this.products[index] = {
-      ...product,
-      ...payload,
+  update(id: number, changes: UpdateUserDto) {
+    const user = this.findOne(id);
+    const index = this.users.findIndex((item) => item.id === id);
+    this.users[index] = {
+      ...user,
+      ...changes,
     };
-    return this.products[index];
+    return this.users[index];
   }
 
-  delete(id: number) {
-    const index = this.products.findIndex((item) => item.id === id);
+  remove(id: number) {
+    const index = this.users.findIndex((item) => item.id === id);
     if (index === -1) {
-      throw new NotFoundException(`Product #${id} not found`);
+      throw new NotFoundException(`User #${id} not found`);
     }
-    this.products.splice(index, 1);
+    this.users.splice(index, 1);
     return true;
   }
 }

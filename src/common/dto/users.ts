@@ -1,21 +1,21 @@
-import { IsNotEmpty, IsString, IsPhoneNumber, IsPositive } from 'class-validator';
+import { IsNotEmpty, IsString, IsEmail, Length } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
-export class CreateProductDto {
+export class CreateUserDto {
+  @IsString()
+  @IsEmail()
+  readonly email: string;
+
   @IsString()
   @IsNotEmpty()
-  readonly name: string;
+  @Length(6)
+  readonly password: string;
 
   @IsNotEmpty()
-  @IsNotEmpty()
-  readonly lastName: string;
-
-  @IsPhoneNumber()
-  @IsNotEmpty()
-  readonly phone: string;
+  readonly role: string;
 }
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {}
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
 
 // If you want to omit a field, you can use this
 // export class UpdateProductDto extends PartialType(
