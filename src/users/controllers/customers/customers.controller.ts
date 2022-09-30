@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { CreateCustomerDto, UpdateCustomerDto } from 'src/common/dto/customer.dto';
-import { CustomersService } from 'src/services/customers/customers.service';
+import { CustomersService } from 'src/users/services/customers/customers.service';
+
 @Controller('customers')
 export class CustomersController {
   constructor(private customersService: CustomersService) {}
